@@ -5,7 +5,7 @@ metadata:
   labels:
     app: purchase-predict
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: pod-purchase-predict
@@ -16,22 +16,22 @@ spec:
     spec:
       containers:
       - name: pod-purchase-predict
-        image: gcr.io/project-7c818ee0-8f39-47d7-85d/purchase-predict-api:DOCKER_TAG
+        image: us-central1-docker.pkg.dev/project-7c818ee0-8f39-47d7-85d/purchased-docker/purchase_predict_api:latest
         env:
         - name: PORT
           value: "80"
         - name: ENV
           value: "staging"
         - name: MLFLOW_SERVER
-          value: "http://IP_VM_MLFLOW/"
+          value: "http://10.132.0.2/"
         - name: MLFLOW_REGISTRY_NAME
           value: "purchase_predict"
         ports:
         - containerPort: 80
         resources:
           requests:
-            memory: "0.5G"
-            cpu: "0.5"
+            memory: "512Mi"
+            cpu: "100m"
           limits:
             memory: "1G"
-            cpu: "1"
+            cpu: "500m"
